@@ -1,0 +1,21 @@
+# Git files
+.git/
+
+# Virtual environment
+venv/
+
+# Byte-compiled
+__pycache__/
+
+# Distribution / packaging
+*.spec
+.idea/
+
+jobs_parser/downloaded_pages
+
+# Pytests cache
+.pytest_cache/
+
+# Coverage files
+.coverage
+.coveragerc
