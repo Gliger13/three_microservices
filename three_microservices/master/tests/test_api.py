@@ -4,7 +4,7 @@ import pytest
 import requests
 
 import settings
-from api import MasterValidation
+from api.validator import MasterValidation
 
 
 @contextlib.contextmanager
