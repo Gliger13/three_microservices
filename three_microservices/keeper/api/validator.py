@@ -1,4 +1,4 @@
-from three_microservices.keeper.api.api_commands import KeeperCommands
+from api.api_commands import KeeperCommands
 
 
 class KeeperValidation:
