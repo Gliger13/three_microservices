@@ -1,11 +1,10 @@
 import contextlib
-import logging
 
 import pytest
 import requests
 
 import settings
-from api import ReaperValidation
+from api.validator import ReaperValidation
 
 
 @pytest.fixture

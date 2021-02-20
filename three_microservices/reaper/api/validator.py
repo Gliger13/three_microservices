@@ -1,6 +1,6 @@
 import jsonschema
 
-from commands.api_commands import ReaperCommands
+from .api_commands import ReaperCommands
 
 
 class ReaperValidation:

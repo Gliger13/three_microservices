@@ -1,4 +1,4 @@
-from .reaper_scraper import ReaperScraper
+from three_microservices.reaper.reaper.reaper_scraper import ReaperScraper
 
 
 class ReaperCommands:

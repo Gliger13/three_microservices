@@ -1,4 +1,4 @@
-from ...commands.reaper_scraper import ReaperScraper
+from ..reaper.reaper_scraper import ReaperScraper
 
 
 class TestReaperScraper:
