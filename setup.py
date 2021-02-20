@@ -22,4 +22,7 @@ setup(
     packages=find_packages(),
     python_requires='>=3.8, <4',
     install_requires=requirements,
+    dependency_links=[
+        'https://github.com/Gliger13/jobs_parser/tarball/main#egg=jobs_parser'
+    ]
 )
