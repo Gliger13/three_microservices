@@ -13,4 +13,4 @@ COPY keeper/ ./
 RUN python setup.py install
 
 
-CMD [ "python", "./bot.py" ]
+CMD [ "python", "./keeper/app.py" ]

@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  master:
+    build: master/
+    container_name: master
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/master
+    restart: on-failure
+    network_mode: host
+    command: python /three_microservices/master/master/app.py
+  reaper:
+    build: reaper/
+    container_name: reaper
+    ports:
+      - 8001:8001
+    volumes:
+      - ./:/reaper
+    restart: on-failure
+    network_mode: host
+    command: python /three_microservices/reaper/reaper/app.py
+  keeper:
+    build: keeper/
+    container_name: keeper
+    ports:
+      - 8002:8002
+    volumes:
+      - ./:/keeper
+    restart: on-failure
+    network_mode: host
+    command: python /three_microservices/keeper/keeper/app.py
+    depends_on:
+      - database
+  database:
+    image: mongo
+    command: mongod --port 27018 --quiet
+    restart: always
+    ports:
+      - 27018:27018
+
