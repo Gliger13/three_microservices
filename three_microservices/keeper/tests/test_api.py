@@ -3,8 +3,8 @@ import contextlib
 import pytest
 import requests
 
-from .. import settings
-from ..api.validator import KeeperValidation
+import settings
+from api.validator import KeeperValidation
 
 
 @contextlib.contextmanager

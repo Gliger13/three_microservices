@@ -7,10 +7,10 @@ from .validator import KeeperValidation
 class Keeper(Resource):
     def __init__(self):
         self.validator = KeeperValidation()
-        self.reaper_commands = KeeperCommands()
+        self.keeper_commands = KeeperCommands()
 
     def get(self):
-        return {'available_commands': self.reaper_commands.available_commands}
+        return {'available_commands': self.keeper_commands.available_commands}
 
     def _post_parser(self):
         args_parser = reqparse.RequestParser()
@@ -22,5 +22,4 @@ class Keeper(Resource):
         args = self._post_parser()
         command_name = args.get('command_name')
         data = args.get('data')
-        print(data)
-        return self.reaper_commands.run_command(command_name, data)
+        return self.keeper_commands.run_command(command_name, data)

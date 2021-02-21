@@ -3,11 +3,11 @@ from api.api_commands import KeeperCommands
 
 class KeeperValidation:
     def __init__(self):
-        self.reaper_commands = KeeperCommands()
+        self.keeper_commands = KeeperCommands()
         self.command_name = None
 
     def valid_command_name(self, value):
-        if value not in self.reaper_commands.available_commands:
+        if value not in self.keeper_commands.available_commands:
             raise ValueError(f'Microservice Keeper has no command with name {value}')
         self.command_name = value
         return value

@@ -1,6 +1,6 @@
 import pytest
 
-from three_microservices.keeper.keeper.database import KeeperDB
+from keeper.database import KeeperDB
 
 
 @pytest.fixture

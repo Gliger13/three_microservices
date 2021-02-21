@@ -1,3 +1,5 @@
+import json
+
 import pytest
 
 
@@ -22,4 +24,4 @@ class TestKeeperDB:
     ])
     def test_get_data(self, test_data, keeper_db):
         keeper_db.save_data(test_data)
-        assert keeper_db.get_data({'test_data': 'data'}) == [test_data]
+        assert json.loads(keeper_db.get_data({'test_data': 'data'})).pop().get('data1') == test_data.get('data1')

@@ -7,7 +7,7 @@ from api.keeper import Keeper
 
 class KeeperApp:
     def __init__(self):
-        self.app = Flask('Reaper')
+        self.app = Flask('Keeper')
         self.api = Api(self.app)
 
     def run(self):
