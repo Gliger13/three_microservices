@@ -15,6 +15,7 @@ class ReaperValidation:
         return value
 
     def valid_data_to_parsing(self, value):
+        # JSON schema of parameters to run web parser
         json_schema = {
             "type": "object",
             "properties": {
