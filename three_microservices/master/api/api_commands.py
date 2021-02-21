@@ -1,3 +1,7 @@
+import requests
+
+import settings
+
 
 class MasterCommands:
     @property
@@ -8,8 +12,16 @@ class MasterCommands:
     def run_command(self, command_name, data):
         return getattr(self.__class__, command_name)(self, data)
 
-    def get_data(self, *args, **kwargs):
-        return 'some_data'
+    def get_data(self, data):
+        request_data = {
+            'command_name': 'get_data',
+            'data': data
+        }
+        return requests.post(settings.KEEPER_URL, json=request_data).json()
 
-    def run_web_parser(self, data, *args, **kwargs):
-        return 'run parser'
+    def run_web_parser(self, data):
+        request_data = {
+            'command_name': 'start_scraping',
+            'data': data
+        }
+        return requests.post(settings.REAPER_URL, json=request_data).json()

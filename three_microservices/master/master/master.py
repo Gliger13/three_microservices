@@ -15,7 +15,7 @@ class Master(Resource):
 
     def _post_parser(self):
         self.parser.add_argument('command_name', type=self.validator.valid_command_name, required=True)
-        self.parser.add_argument('data')
+        self.parser.add_argument('data', type=dict, location='json')
         return self.parser.parse_args()
 
     def post(self):

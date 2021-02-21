@@ -7,3 +7,6 @@ HOST = 'localhost'
 DEBUG = True
 
 url = f'http://{HOST}:{PORT}'
+
+KEEPER_URL = 'http://localhost:8002'
+REAPER_URL = 'http://localhost:8001'

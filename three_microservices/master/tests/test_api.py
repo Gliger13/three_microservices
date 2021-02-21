@@ -33,16 +33,31 @@ class TestMasterAPI:
         r = requests.get(settings.url)
         assert r.ok
 
-    @pytest.mark.parametrize(
-        'test_data,expected', [
-            ({'command_name': 'get_data'}, True),
-            ({'command_name': 'wrong_command_name'}, False),
-            ({'command_name': 'run_web_parser', 'data': 111111}, True),
-            ({'command_name': 'run_web_parser', 'data': {'data': 'useless data'}}, True),
-            ({'data': '12345'}, False),
-            ({}, False),
-        ]
-    )
-    def test_post_request(self, test_data, expected):
-        r = requests.post(settings.url, data=test_data)
-        assert r.ok == expected
+    @pytest.mark.parametrize('test_data,expected', [
+        ({
+             'command_name': 'run_web_parser',
+             'data': {
+                 'first_paginator_url_template': 'https://rabota.by/search/vacancy?text=Python&page={page_number}',
+                 'words_to_find': ['python'],
+                 'request_headers': {'user-agent': 'job_parser/1.1.1'},
+                 'block_link_class': 'bloko-link HH-LinkModifier',
+                 'start_page': 0,
+                 'end_page': 1,
+             }
+         }, True),
+        ({
+             'command_name': 'run_web_parser',
+             'data': {
+                 'first_paginator_url_template': 'https://rabota.by/search/vacancy?text=Python&page={page_number}',
+                 'words_to_find': ['Linux'],
+                 'request_headers': {'user-agent': 'job_parser/1.1.1'},
+                 'classes_to_exclude': ['recommended-vacancies', 'related-vacancies-wrapper'],
+                 'block_link_class': 'bloko-link HH-LinkModifier',
+                 'start_page': 0,
+                 'end_page': 1,
+             }
+         }, True),
+    ])
+    def test_run_web_parser(self, test_data, expected):
+        response = requests.post(settings.url, json=test_data)
+        assert response.ok == expected
