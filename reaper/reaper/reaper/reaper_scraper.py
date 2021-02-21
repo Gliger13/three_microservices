@@ -1,7 +1,12 @@
+import logging
+
 import requests
 from jobs_parser.app import App
 
 import settings
+
+
+module_logger = logging.getLogger('reaper')
 
 
 class ReaperScraper:
@@ -22,15 +27,34 @@ class ReaperScraper:
             start_page=start_page, end_page=end_page
         )
 
-    def _save_results(self, data: dict) -> bool:
-        request_data = {
+    @staticmethod
+    def _is_keeper_alive() -> bool:
+        try:
+            response = requests.get(settings.KEEPER_URL)
+        except (requests.ConnectionError, requests.Timeout):
+            return False
+        return response.ok
+
+    def _save_results(self, data: dict):
+        if not self._is_keeper_alive():
+            module_logger.warning("Keeper doesn't answer. Data saving is not possible")
+            return
+
+        request_json = {
             'command_name': 'save_data',
-            'data': data
+            'data': data,
         }
-        return requests.post(settings.KEEPER_URL, json=request_data).ok
+        response = requests.post(settings.KEEPER_URL, json=request_json)
+
+        if response.ok:
+            module_logger.info("Keeper saved parser results")
+        else:
+            module_logger.warning("Keeper was unable to save parser results")
 
     def parse(self) -> dict:
+        module_logger.info('Start web parser')
         results = self.parser.parse().json()
-        if self._save_results(results):
-            pass
+        module_logger.info('Web parser finished')
+
+        self._save_results(results)
         return results
