@@ -22,18 +22,52 @@ Also, microservices are deployed using Docker / docker-compose
  - provides API to get the data
  - forces Reaper to run web scrapper
 
+## API
+All microservices provide API
+##### GET
+Any get request will return a list of available microservice commands.
+##### POST
+Through the post, you can give commands to the microservice, the json template of POST is:
+````
+json_data = {
+    "command_name": ""
+    "data": {}
+}
+````
+### Available commands:
+#### Reaper
 
-## Installing
+ - start_scraping - starts scraping the website according to the specified parameters.
+
+#### Keeper
+
+ - save_data - save any json data contained in the request.
+ - get_data - get data using piece of information.
+
+#### Master
+
+ - run_web_parser - sends a request to Reaper to start scraping.
+ - get_data - sends a request to Keeper for get information.
+
+## Installing and run
 **Python 3.8 or higher is required**
 
-
+Using docker:
 ````
 # Linux
 git clone https://github.com/Gliger13/three_microservices.git
-cd three_microservices
-python setup.py install
+cd three_microservices/
+docker-compose build && docker-compose up -d
 ````
 
+If you want to install the microservice, for example master, separately then:
+````
+# Linux
+git clone https://github.com/Gliger13/three_microservices.git
+cd three_microservices/master/
+python setup.py install
+python master/app.py
+````
 
 ## Author
 
