@@ -22,15 +22,18 @@ class ReaperScraper:
             start_page=start_page, end_page=end_page
         )
 
+    def _is_keeper_alive(self) -> bool:
+        return requests.head(settings.KEEPER_URL).ok
+
     def _save_results(self, data: dict) -> bool:
-        request_data = {
+        request_json = {
             'command_name': 'save_data',
-            'data': data
+            'data': data,
         }
-        return requests.post(settings.KEEPER_URL, json=request_data).ok
+        return requests.post(settings.KEEPER_URL, json=request_json).ok
 
     def parse(self) -> dict:
         results = self.parser.parse().json()
-        if self._save_results(results):
-            pass
+        if self._is_keeper_alive():
+            self._save_results(results)
         return results
