@@ -3,7 +3,7 @@ import logging
 from bson import json_util
 from pymongo import MongoClient
 
-from three_microservices.keeper import settings
+import settings
 
 module_logger = logging.getLogger('keeper')
 

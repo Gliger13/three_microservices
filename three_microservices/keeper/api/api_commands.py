@@ -1,4 +1,4 @@
-from three_microservices.keeper.keeper.database import KeeperDB
+from keeper.database import KeeperDB
 
 
 class KeeperCommands:

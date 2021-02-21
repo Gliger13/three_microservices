@@ -1,4 +1,4 @@
-from ..reaper.reaper_scraper import ReaperScraper
+from reaper.reaper_scraper import ReaperScraper
 
 
 class TestReaperScraper:
@@ -15,5 +15,5 @@ class TestReaperScraper:
             classes_to_exclude=classes_to_exclude,
             request_headers=request_headers,
             start_page=0, end_page=1
-        ).parse().popitem()[1]
-        assert 2 > result > 0
+        ).parse().get('parse_results').get('Linux')
+        assert 100 > result > 0
