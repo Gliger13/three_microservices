@@ -4,7 +4,7 @@ PORT = 8001
 # Microservice hostname
 HOST = 'localhost'
 # Logger debug level
-DEBUG = True
+DEBUG = False
 
 url = f'http://{HOST}:{PORT}'
 
