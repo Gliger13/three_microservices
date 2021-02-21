@@ -1,6 +1,8 @@
 import requests
 from jobs_parser.app import App
 
+import settings
+
 
 class ReaperScraper:
     def __init__(
@@ -25,7 +27,7 @@ class ReaperScraper:
             'command_name': 'save_data',
             'data': data
         }
-        return requests.post('http://localhost:8002', json=request_data).ok
+        return requests.post(settings.KEEPER_URL, json=request_data).ok
 
     def parse(self) -> dict:
         results = self.parser.parse().json()

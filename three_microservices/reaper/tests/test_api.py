@@ -30,12 +30,10 @@ class TestMasterValidation:
 
 class TestMasterAPI:
     def test_connection(self):
-        r = requests.head(settings.url)
-        assert r.ok
+        assert requests.head(settings.url).ok
 
     def test_get_request(self):
-        r = requests.get(settings.url)
-        assert r.ok
+        assert requests.get(settings.url).ok
 
     test_data_scraping = [
         ({
@@ -80,5 +78,4 @@ class TestMasterAPI:
 
     @pytest.mark.parametrize('test_data,expected', test_data_scraping)
     def test_start_scraping(self, test_data, expected):
-        result = requests.post(settings.url, json=test_data)
-        assert result.ok == expected
+        assert requests.post(settings.url, json=test_data).ok == expected
