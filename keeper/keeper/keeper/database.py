@@ -38,7 +38,7 @@ class KeeperDB:
         return self._collection
 
     def save_data(self, data):
-        self.collection.insert_one(data)
+        self.collection.insert_one(data.copy())
 
     def get_data(self, keys_to_find):
         return json_util.dumps(list(self.collection.find(keys_to_find)))
