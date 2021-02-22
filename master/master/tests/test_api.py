@@ -25,14 +25,40 @@ class TestMasterValidation:
 
 
 class TestMasterAPI:
-    def test_connection(self):
-        r = requests.head(settings.url)
-        assert r.ok
+    @pytest.mark.parametrize('url', [
+        pytest.param(settings.url, marks=pytest.mark.dependency(name="test_master_connection"), ),
+        pytest.param(settings.KEEPER_URL, marks=pytest.mark.dependency(name="test_keeper_connection")),
+        pytest.param(settings.REAPER_URL, marks=pytest.mark.dependency(name="test_reaper_connection")),
+    ])
+    def test_connection(self, url):
+        is_ok_connection = False
+        try:
+            requests.head(url)
+            is_ok_connection = True
+        except (requests.ConnectionError, requests.Timeout):
+            pass
+        assert is_ok_connection, f"Connection error with {url}, should be no connection problems"
 
+    @pytest.mark.dependency(depends=["test_master_connection"])
     def test_get_request(self):
-        r = requests.get(settings.url)
-        assert r.ok
+        assert requests.get(settings.url).ok, "The status of the request code is not 200, it should only be 200"
 
+    @pytest.mark.dependency(depends=["test_master_connection", "TestMasterAPI::test_get_request"])
+    @pytest.mark.parametrize('test_input', [('run_web_parser', 'get_data')])
+    def test_get_content(self, test_input):
+        available_commands = requests.get(settings.url).json()['available_commands']
+        is_same_commands = sorted(available_commands.keys()) == sorted(test_input)
+        assert is_same_commands, "Expected commands are not the same as actual available commands, should be same"
+
+    @pytest.mark.dependency(depends=["test_master_connection", "TestMasterAPI::test_get_request"])
+    def test_get_content_help(self):
+        available_commands = requests.get(settings.url).json()['available_commands']
+        is_all_help_is_str = all((isinstance(help_content, str) for help_content in available_commands.values()))
+        assert is_all_help_is_str, "Help on command is not of str type, should be str"
+
+    @pytest.mark.dependency(depends=[
+        "test_master_connection", "test_keeper_connection", "test_reaper_connection"
+    ])
     @pytest.mark.parametrize('test_data,expected', [
         ({
              'command_name': 'run_web_parser',

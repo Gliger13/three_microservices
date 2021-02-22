@@ -17,6 +17,7 @@ py==1.10.0
 pyparsing==2.4.7
 pytest==6.2.2
 pytest-cov==2.11.1
+pytest-dependency==0.5.1
 pytz==2021.1
 requests==2.25.1
 six==1.15.0
