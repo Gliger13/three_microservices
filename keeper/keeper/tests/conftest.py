@@ -1,3 +1,5 @@
+from typing import Dict, Tuple
+
 import pytest
 
 from keeper.database import KeeperDB
