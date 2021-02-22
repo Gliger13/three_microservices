@@ -1,5 +1,5 @@
 # Three microservices
-![Generic badge](https://img.shields.io/badge/version-0.0.0-green.svg) ![Generic badge](https://img.shields.io/badge/python-3.8-blue.svg) 
+![Generic badge](https://img.shields.io/badge/version-0.1.0-green.svg) ![Generic badge](https://img.shields.io/badge/python-3.8-blue.svg) 
 
 A project about the networking of three microservices: Reaper, Keeper, Master.
 Also, microservices are deployed using Docker / docker-compose
