@@ -17,7 +17,7 @@ def does_not_raise():
     yield
 
 
-class TestMasterValidation:
+class TestReaperValidation:
     @pytest.mark.parametrize('test_data,expectation', [
         ('start_scraping', does_not_raise()),
         ('wrong_command_name', pytest.raises(ValueError)),
@@ -29,28 +29,32 @@ class TestMasterValidation:
 
 
 class TestReaperAPI:
-    @pytest.mark.dependency()
-    def test_connection(self):
+
+    @pytest.mark.parametrize('url', [
+        pytest.param(settings.url, marks=pytest.mark.dependency(name="test_reaper_connection"),),
+        pytest.param(settings.KEEPER_URL, marks=pytest.mark.dependency(name="test_keeper_connection")),
+    ])
+    def test_connection(self, url):
         is_ok_connection = False
         try:
-            requests.head(settings.url)
+            requests.head(url)
             is_ok_connection = True
         except (requests.ConnectionError, requests.Timeout):
             pass
         assert is_ok_connection, "Connection error, should be no connection problems"
 
-    @pytest.mark.dependency(depends=["TestReaperAPI::test_connection"])
+    @pytest.mark.dependency(depends=["test_reaper_connection"])
     def test_get_request(self):
         assert requests.get(settings.url).ok, "The status of the request code is not 200, it should only be 200"
 
-    @pytest.mark.dependency(depends=["TestReaperAPI::test_connection", "TestReaperAPI::test_get_request"])
+    @pytest.mark.dependency(depends=["test_reaper_connection", "TestReaperAPI::test_get_request"])
     @pytest.mark.parametrize('test_input', [('start_scraping', )])
     def test_get_content(self, test_input):
         available_commands = requests.get(settings.url).json()['available_commands']
         is_same_commands = sorted(available_commands.keys()) == sorted(test_input)
         assert is_same_commands, "Expected commands are not the same as actual available commands, should be same"
 
-    @pytest.mark.dependency(depends=["TestReaperAPI::test_connection", "TestReaperAPI::test_get_request"])
+    @pytest.mark.dependency(depends=["test_reaper_connection", "TestReaperAPI::test_get_request"])
     def test_get_content_help(self):
         available_commands = requests.get(settings.url).json()['available_commands']
         is_all_help_is_str = all((isinstance(help_content, str) for help_content in available_commands.values()))
@@ -97,7 +101,7 @@ class TestReaperAPI:
          }, True),
     ]
 
-    @pytest.mark.dependency(depends=["TestReaperAPI::test_connection"])
+    @pytest.mark.dependency(depends=["test_reaper_connection", "test_keeper_connection"])
     @pytest.mark.parametrize('test_data,expected', test_data_scraping)
     def test_start_scraping(self, test_data, expected):
         assert requests.post(settings.url, json=test_data).ok == expected
