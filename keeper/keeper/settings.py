@@ -8,6 +8,6 @@ DEBUG = False
 
 url = f'http://{HOST}:{PORT}'
 
-BD_STRING = 'mongodb://mongo:27018'
+BD_STRING = 'mongodb://0.0.0.0:27018'
 BD_CLUSTER_NAME = 'keeper'
 DB_COLLECTION_NAME = 'keeper'

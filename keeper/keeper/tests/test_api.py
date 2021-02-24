@@ -52,26 +52,26 @@ class TestKeeperAPI:
         is_all_help_is_str = all((isinstance(help_content, str) for help_content in available_commands.values()))
         assert is_all_help_is_str, "Help on command is not of str type, should be str"
 
-    @pytest.mark.dependency(depends=["TestKeeperAPI::test_connection"])
-    @pytest.mark.parametrize('test_input,expected', [
-        ({
-            'command_name': 'get_data',
-        }, False),
-        ({
-            'command_name': 'get_data',
-            'data': {}
-        }, False),
-        ({
-            'command_name': 'get_data',
-            'data': {
-                'test_data': 'data'
-            }
-        }, True),
-    ])
-    def test_get_data(self, test_input, expected, keeper_db, clear_db):
-        keeper_db.save_data({'test_data': 'data'})
-        response = requests.post(settings.url, json=test_input)
-        assert response.ok == expected, "Status code of request should be 200 or 400"
+    # @pytest.mark.dependency(depends=["TestKeeperAPI::test_connection"])
+    # @pytest.mark.parametrize('test_input,expected', [
+    #     ({
+    #         'command_name': 'get_data',
+    #     }, False),
+    #     ({
+    #         'command_name': 'get_data',
+    #         'data': {}
+    #     }, False),
+    #     ({
+    #         'command_name': 'get_data',
+    #         'data': {
+    #             'test_data': 'data'
+    #         }
+    #     }, True),
+    # ])
+    # def test_get_data(self, test_input, expected, keeper_db, clear_db):
+    #     keeper_db.save_data({'test_data': 'data'})
+    #     response = requests.post(settings.url, json=test_input)
+    #     assert response.ok == expected, "Status code of request should be 200 or 400"
 
     @pytest.mark.dependency(depends=["TestKeeperAPI::test_connection"])
     @pytest.mark.parametrize('test_input,expected', [

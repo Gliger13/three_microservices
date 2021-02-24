@@ -21,6 +21,8 @@ services:
     command: python /three_microservices/reaper/reaper/app.py
   keeper:
     build: keeper/
+    networks:
+      - my-network
     container_name: keeper
     ports:
       - 8002:8002
@@ -31,10 +33,15 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mongo
+    image: mongo:latest
+    command: mongod --port 27018
     container_name: mongo
-    command: mongod --port 27018 --quiet
     restart: always
+    networks:
+      - my-network
     ports:
       - 27018:27018
 
+networks:
+  my-network:
+    driver: bridge
