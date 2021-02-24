@@ -6,8 +6,6 @@ WORKDIR /three_microservices/keeper/
 
 # copy the dependencies file to the working directory
 COPY ./ ./
-# copy the content of the local src directory to the working directory
-COPY keeper/ ./
 
 # install dependencies
 RUN python setup.py install

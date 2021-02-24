@@ -2,11 +2,11 @@
 # Microservice port
 PORT = 8000
 # Microservice hostname
-HOST = 'localhost'
+HOST = '0.0.0.0'
 # Logger debug level
 DEBUG = False
 
 url = f'http://{HOST}:{PORT}'
 
-KEEPER_URL = 'http://localhost:8002'
-REAPER_URL = 'http://localhost:8001'
+KEEPER_URL = 'http://0.0.0.0:8002'
+REAPER_URL = 'http://0.0.0.0:8001'

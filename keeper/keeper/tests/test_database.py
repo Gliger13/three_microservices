@@ -23,7 +23,7 @@ class TestKeeperDB:
     def test_db_connection(self):
         is_ok_connection = False
         try:
-            pymongo.MongoClient(settings.BD_HOST, settings.BD_PORT).server_info()
+            pymongo.MongoClient(settings.BD_STRING).server_info()
             is_ok_connection = True
         except pymongo.errors.ServerSelectionTimeoutError:
             pass
