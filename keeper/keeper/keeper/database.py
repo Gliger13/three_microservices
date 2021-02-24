@@ -17,7 +17,10 @@ class Database:
     def _connect(self):
         if not self._cluster:
             module_logger.debug('Database initialization.')
-            self._cluster = MongoClient(settings.BD_HOST, settings.BD_PORT)[settings.BD_CLUSTER_NAME]
+            self._cluster = MongoClient(
+                settings.BD_HOST, settings.BD_PORT,
+                serverSelectionTimeoutMS=5000
+            )[settings.BD_CLUSTER_NAME]
             module_logger.debug('Database connected.')
         return self._cluster
 

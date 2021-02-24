@@ -2,13 +2,13 @@
 # Microservice port
 PORT = 8002
 # Microservice hostname
-HOST = 'localhost'
+HOST = '0.0.0.0'
 # Logger debug level
 DEBUG = False
 
 url = f'http://{HOST}:{PORT}'
 
-BD_HOST = 'localhost'
+BD_HOST = 'database'
 BD_PORT = 27018
 BD_CLUSTER_NAME = 'keeper'
 DB_COLLECTION_NAME = 'keeper'

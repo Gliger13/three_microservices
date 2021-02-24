@@ -9,7 +9,6 @@ services:
     volumes:
       - ./:/master
     restart: on-failure
-    network_mode: host
     command: python /three_microservices/master/master/app.py
   reaper:
     build: reaper/
@@ -19,7 +18,6 @@ services:
     volumes:
       - ./:/reaper
     restart: on-failure
-    network_mode: host
     command: python /three_microservices/reaper/reaper/app.py
   keeper:
     build: keeper/
@@ -29,7 +27,6 @@ services:
     volumes:
       - ./:/keeper
     restart: on-failure
-    network_mode: host
     command: python /three_microservices/keeper/keeper/app.py
     depends_on:
       - database
