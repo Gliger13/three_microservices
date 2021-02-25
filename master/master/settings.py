@@ -8,5 +8,5 @@ DEBUG = False
 
 url = f'http://{HOST}:{PORT}'
 
-KEEPER_URL = 'http://0.0.0.0:8002'
-REAPER_URL = 'http://0.0.0.0:8001'
+KEEPER_URL = 'http://keeper:8002'
+REAPER_URL = 'http://reaper:8001'

@@ -8,4 +8,4 @@ DEBUG = False
 
 url = f'http://{HOST}:{PORT}'
 
-KEEPER_URL = 'http://0.0.0.0:8002'
+KEEPER_URL = 'http://keeper:8002'
