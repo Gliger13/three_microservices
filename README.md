@@ -69,6 +69,14 @@ python setup.py install
 python master/app.py
 ````
 
+#### NOTE: 
+In the current configuration, microservices can only work in docker.
+
+To work in other places, override the addresses of other microservices and, if necessary, databases in:
+ - master/master/settings.py
+ - reaper/reaper/settings.py
+ - keeper/keeper/settings.py
+
 ## Functional API testing
 
 If you want to make sure that all services are working correctly, you can run api tests:
@@ -81,14 +89,6 @@ pip install -r requirements.txt
 # Then run tests using pytest and make sure they all get passed 
 pytest .
 ````
-
-#### NOTE: 
-In the current configuration, microservices can only work in docker.
-
-To work in other places, override the addresses of other microservices and, if necessary, databases in:
- - master/master/settings.py
- - reaper/reaper/settings.py
- - keeper/keeper/settings.py
 
 ## Author
 
