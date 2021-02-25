@@ -30,7 +30,7 @@ class TestKeeperDB:
         assert is_ok_connection, "Database connection error, should be no connection problems"
 
     @pytest.mark.dependency(depends=["TestKeeperDB::test_db_connection"])
-    def test_save_data(self, keeper_db, test_data_to_save, clear_db):
+    def test_save_data(self, keeper_db, test_data_to_save):
         keeper_db.save_data(test_data_to_save)
 
         random_key, random_value = random.choice(list(test_data_to_save.items()))
@@ -40,7 +40,7 @@ class TestKeeperDB:
         assert find_result == test_data_to_save, "Saved and test data does not match, should be the same"
 
     @pytest.mark.dependency(depends=["TestKeeperDB::test_db_connection"])
-    def test_get_data(self, keeper_db, test_data_to_save, clear_db):
+    def test_get_data(self, keeper_db, test_data_to_save):
         keeper_db.save_data(test_data_to_save.copy())
 
         random_key, random_value = random.choice(list(test_data_to_save.items()))

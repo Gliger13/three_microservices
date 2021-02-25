@@ -10,5 +10,4 @@ COPY ./ ./
 # install dependencies
 RUN python setup.py install
 
-
 CMD [ "python", "./keeper/app.py" ]
